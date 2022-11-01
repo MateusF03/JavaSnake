@@ -26,7 +26,7 @@ public class MainFrame extends JFrame  {
         game.setRenderPanel(renderPanel);
         addKeyListener(game);
         Thread gameThread = new Thread(() -> {
-            long taskTime = 0L;
+            long taskTime;
             long sleepTime = 1000/15L;
             boolean running = true;
             while (running) {

@@ -20,8 +20,6 @@ public class RenderPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int[][] board = game.boardMatrix();
-        g.setColor(Color.BLACK);
-        g.fillRect(0,0,getWidth(), getHeight());
         int currentValue = Color.BLACK.getRGB();
         for (int x = 0; x < getWidth() / 10; x++) {
             for (int y = 0; y < getHeight() / 10; y++) {
@@ -37,10 +35,6 @@ public class RenderPanel extends JPanel {
                     case 3:
                         color = Color.RED;
                         break;
-                    /*default:
-                    case 0:
-                        color = Color.BLACK;
-                        break;*/
                 }
                 if (currentValue != color.getRGB()) {
                     g.setColor(color);

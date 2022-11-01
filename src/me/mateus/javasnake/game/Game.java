@@ -18,10 +18,8 @@ public class Game implements KeyListener {
 
 
     private final Random random = new Random();
-    private final int EMPTY = 0;
-    private final int SNAKE_BODY = 1;
-    private final int SNAKE_HEAD = 2;
-    private final int APPLE = 3;
+
+    private boolean pressed = false;
 
     public Game(int size) {
         this.size = size;
@@ -110,15 +108,19 @@ public class Game implements KeyListener {
         int[][] matrix = new int[size][size];
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
+                int EMPTY = 0;
                 matrix[x][y] = EMPTY;
             }
         }
         for (Location location : snake.getBody()) {
+            int SNAKE_BODY = 1;
             matrix[location.getX()][location.getY()] = SNAKE_BODY;
         }
         Location head = snake.getHead();
+        int SNAKE_HEAD = 2;
         matrix[head.getX()][head.getY()] = SNAKE_HEAD;
         Location appleLocation = apple.getLocation();
+        int APPLE = 3;
         matrix[appleLocation.getX()][appleLocation.getY()] = APPLE;
         return matrix;
     }
@@ -132,15 +134,21 @@ public class Game implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //System.out.println(e.getKeyCode());
+        if (pressed)
+            return;
         int keyCode = e.getKeyCode();
         if (keyCodeEvent.containsKey(keyCode)) {
             keyCodeEvent.get(keyCode).run();
+            pressed = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int keyCode = e.getKeyCode();
+        if (keyCodeEvent.containsKey(keyCode)) {
+            pressed = false;
+        }
     }
 
     private Location nextPosition(Location position, Direction step) {
